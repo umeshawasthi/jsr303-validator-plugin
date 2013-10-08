@@ -2,6 +2,9 @@
 .idea
 *.iml
 
+# Maven specific patterns
+target
+
 *.class
 
 # Package Files #
