@@ -21,11 +21,6 @@
 
 package org.jsr303.validation.interceptor;
 
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.ActionProxy;
 import com.opensymphony.xwork2.inject.Inject;
@@ -35,6 +30,10 @@ import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import com.opensymphony.xwork2.validator.DelegatingValidatorContext;
 import com.opensymphony.xwork2.validator.ValidatorContext;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.util.Set;
 
 /**
  * <p>
@@ -125,28 +124,23 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
         if ( constraintViolations != null )
         {
             ValidatorContext validatorContext = new DelegatingValidatorContext( action );
-            while ( constraintViolations.iterator().hasNext() )
-            {
-                ConstraintViolation<Object> constraintViolation = constraintViolations.iterator().next();
+            for (ConstraintViolation<Object> constraintViolation : constraintViolations) {
                 // get message
                 String key = constraintViolation.getMessage();
                 String message = key;
-                try
-                {
-                    message = validatorContext.getText( key );
+                try {
+                    message = validatorContext.getText(key);
+                } catch (Exception e) {
+                    LOG.error("Error while trying to fetch message", e);
                 }
-                catch ( Exception e )
-                {
-                    LOG.error( "Error while trying to fetch message", e );
-                }
-                
+
                 if (isActionError(constraintViolation)) {
                     if (LOG.isDebugEnabled()) {
-                    LOG.debug("Adding action error '#0'", message);
+                        LOG.debug("Adding action error '#0'", message);
                     }
                     validatorContext.addActionError(message);
                 } else {
-                    
+
                     ValidationError validationError = buildBeanValidationError(constraintViolation, message);
                 }
             }
