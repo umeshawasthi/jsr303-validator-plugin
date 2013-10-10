@@ -21,6 +21,13 @@
 
 package org.jsr303.validation.interceptor;
 
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+
+import org.apache.commons.lang3.StringUtils;
+
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.ActionProxy;
 import com.opensymphony.xwork2.inject.Inject;
@@ -30,10 +37,6 @@ import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import com.opensymphony.xwork2.validator.DelegatingValidatorContext;
 import com.opensymphony.xwork2.validator.ValidatorContext;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validator;
-import java.util.Set;
 
 /**
  * <p>
@@ -142,6 +145,16 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
                 } else {
 
                     ValidationError validationError = buildBeanValidationError(constraintViolation, message);
+                    String fieldName=validationError.getFieldName();
+                    if(parentFieldname!=null){
+                    	fieldName = parentFieldname + "." + fieldName;
+                    }
+                    if (LOG.isDebugEnabled()) {
+                    	LOG.debug("Adding field error [#0] with message '#1'", fieldName, validationError.getMessage());
+                    }
+                    validatorContext.addFieldError(fieldName, validationError.getMessage());
+                    
+                   // addBeanValidationErros(constraintViolations, action, valueStack, fieldName);
                 }
             }
         }
@@ -149,16 +162,26 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
     
     
     protected ValidationError buildBeanValidationError(ConstraintViolation<Object> violation, String message){
-        //violation.getPropertyPath().iterator().next().
-        return null;
+    	
+    	if(violation.getPropertyPath().iterator().next().getName() !=null){
+    		String fieldName=violation.getPropertyPath().toString();
+    		 String finalMessage = StringUtils.removeStart(message, fieldName + ".");
+    		 return new ValidationError(fieldName, finalMessage);
+    	}
+    	
+    	return null;
+    	
     }
     
     /**
      * Decide if a violation should be added to the fieldErrors or actionErrors
      */
-    protected boolean isActionError(ConstraintViolation violation) {
-        // need to add futture code here to check action level error
-        return false;
+    protected boolean isActionError(ConstraintViolation<Object> violation) {
+    	
+    	if(violation.getPropertyPath().iterator().next().getName() == null){
+    		return true;
+    	}
+    	return false;
     }
     
   /**

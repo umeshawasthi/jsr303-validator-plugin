@@ -25,7 +25,8 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import javax.validation.spi.ValidationProvider;
 
-import com.opensymphony.xwork2.inject.Container;
+import org.jsr303.validation.constant.ValidatorConstants;
+
 import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
@@ -54,24 +55,30 @@ public class DefaultJSR303ValidationManager implements JSR303ValidationManager
     
    
     
-    @Inject
-    public DefaultJSR303ValidationManager(@Inject Container container)
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Inject
+    public DefaultJSR303ValidationManager(@Inject(value=ValidatorConstants.PROVIDER_CLASS,required=true) String providerClassName)
     {
         super();
-        LOG.info("Initializing bean validation factory to get a validator");
-        //container.getInstance(ValidationProvider.class, "jsr303.validation.providerClass");
-        //setProviderClass(container.getInstance(Class<? extends ValidationProvider>, "jsr303.validation.providerClass"));
-         
-        //container.getInstance(Class<? extends ValidationProvider>, "jsr303.validation.providerClass");
-        //List<ValidationProvider> list=
-        //javax.validation.bootstrap
-       
-       
+        LOG.info("Initializing bean validation11 factory to get a validator");
+        
+        try {
+        	 Class<? extends ValidationProvider> validatorClassObj=(Class<? extends ValidationProvider>) Class.forName(providerClassName);
+			if(validatorClassObj !=null){
+				LOG.info(validatorClassObj.getName() + " validator found");
+				setProviderClass(validatorClassObj);
+			}
+			
+		} catch (ClassNotFoundException e) {
+			LOG.error("Unable to find any bean validator implimentation for "+providerClassName);
+			LOG.equals(e);
+		}
+              
     }
 
 
-    @SuppressWarnings( "rawtypes" )
-    protected Class providerClass;
+    @SuppressWarnings("rawtypes")
+	protected Class<? extends ValidationProvider> providerClass;
     private ValidatorFactory validationFactory;
    
     
@@ -80,9 +87,8 @@ public class DefaultJSR303ValidationManager implements JSR303ValidationManager
      * Set Validation provider class which will be used to do actual validation.
      * Provider class can be any of the implementation which adhere to the JSR303 specifications.
      */
-    @SuppressWarnings( "rawtypes" )
-   // @Inject(value="providerClass")
-    public void setProviderClass( Class<? extends ValidationProvider> providerClass)
+  
+    public void setProviderClass( @SuppressWarnings("rawtypes") Class<? extends ValidationProvider> providerClass)
     {
         this.providerClass = providerClass;
     }
@@ -110,17 +116,7 @@ public class DefaultJSR303ValidationManager implements JSR303ValidationManager
     public Validator getValidator()
     {
        
-        if(providerClass ==null){
-             String message =
-                "**********No EXPLICT VALIDATOR HAS BEEN PROVIDED **********\n"
-                    + "Looks like no bean validator has been provided by you for web app! \n"
-                    + "Building default validation factory.\n";
-            LOG.info( message );
-           
-        }
-        
-        
-        return getValidationFactory().getValidator();
+       return getValidationFactory().getValidator();
     }
     
     @SuppressWarnings("unchecked")
@@ -131,7 +127,11 @@ public class DefaultJSR303ValidationManager implements JSR303ValidationManager
         		this.validationFactory=Validation.byProvider(this.providerClass).configure().buildValidatorFactory();
         	}
         	else{
-        		LOG.info("No provider class has been given...falling back to default validation factory");
+        		String message =
+                        "**********No EXPLICT VALIDATOR HAS BEEN PROVIDED **********\n"
+                            + "Looks like no bean validator has been provided by you for web app! \n"
+                            + "Building default validation factory.\n";
+                 LOG.info( message );
         		this.validationFactory=Validation.buildDefaultValidatorFactory();
         	}
        }
@@ -140,23 +140,7 @@ public class DefaultJSR303ValidationManager implements JSR303ValidationManager
     }
     
     
-    
-    /*public enum ValidationFactory{
-      SINGLE_INSTANCE {
-
-          ValidatorFactory validationFactory =
-              Validation.byProvider().configure().buildValidatorFactory();
-
-          @Override
-          public Validator getValidator() {
-              return validationFactory.getValidator();
-          }
-
-      };
-
-      public abstract Validator getValidator(); 
-  }*/
-
+  
     
     
     /* will be used in future release of plugin to provide more flexibility.
