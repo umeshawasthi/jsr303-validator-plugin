@@ -1,4 +1,4 @@
-!https://travis-ci.org/umeshawasthi/jsr303-validator-plugin.png?branch=master!:https://travis-ci.org/umeshawasthi/jsr303-validator-plugin
+[![Build Status](https://travis-ci.org/umeshawasthi/jsr303-validator-plugin.png?branch=master)](https://travis-ci.org/umeshawasthi/jsr303-validator-plugin)
 
 jsr303-validator-plugin
 =======================
