@@ -39,3 +39,6 @@ This plugin itself do not provide JSR-303 Specific validationn but will use unde
 
 For general information on JSR-303, see the Bean Validation Specification. 
 For information on the specific capabilities of the default reference implementation, see the Hibernate Validator documentation.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/umeshawasthi/jsr303-validator-plugin/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
