@@ -57,7 +57,7 @@ public class DefaultJSR303ValidationManager implements JSR303ValidationManager
     
     @SuppressWarnings({ "unchecked", "rawtypes", "nls" })
 	@Inject
-    public DefaultJSR303ValidationManager(@Inject(value=ValidatorConstants.PROVIDER_CLASS,required=false) String providerClassName)
+    public DefaultJSR303ValidationManager(@Inject(value=ValidatorConstants.PROVIDER_CLASS,required=false) String providerClassName,@Inject(value=ValidatorConstants.IGNORE_XMLCONFIGURAITION,required=false) boolean ignoreXMlConfiguration)
     {
         super();
         LOG.info("Initializing bean validation11 factory to get a validator");
@@ -80,6 +80,7 @@ public class DefaultJSR303ValidationManager implements JSR303ValidationManager
     @SuppressWarnings("rawtypes")
 	protected Class<? extends ValidationProvider> providerClass;
     private ValidatorFactory validationFactory;
+    private boolean ignoreXMlConfiguration;
    
     
     
@@ -94,11 +95,26 @@ public class DefaultJSR303ValidationManager implements JSR303ValidationManager
     }
 
    
+   /**
+    *<p> Bean validation provide a way to ignore XML based validation.
+    * By default plugin will enable XML based bean validation.</p>
+    * <p>
+    * For disabling this feature set ignoreXMlConfiguration=true in your 
+    * application's struts.xml file.
+    * </p>
+    * @param ignoreXMlConfiguration
+    */
+    public void setIgnoreXMlConfiguration( boolean ignoreXMlConfiguration )
+    {
+        this.ignoreXMlConfiguration = ignoreXMlConfiguration;
+    }
 
 
 
-   
-  
+
+
+
+
     /**
      * <p>Method to return Validator instance.This will take in to account the 
      * provider class will try to create a validation factory from given Validator.
@@ -124,7 +140,19 @@ public class DefaultJSR303ValidationManager implements JSR303ValidationManager
         if(this.validationFactory ==null){
         	if(this.providerClass !=null){
         		LOG.info("Creating validation factory for {}", this.providerClass.getName());
-        		this.validationFactory=Validation.byProvider(this.providerClass).configure().buildValidatorFactory();
+        		if(this.ignoreXMlConfiguration){
+        		    
+        		    String message =
+        	                        "**********Setting ignoreXmlConfiguration flag to true **********\n"
+        	                            + "XML configurations will be ignore by Validator \n"
+        	                            + "To enable XML based validation, set ignoreXmlConfiguration to false.\n";
+        		    LOG.info( message);
+        		    this.validationFactory=Validation.byProvider(this.providerClass).configure().ignoreXmlConfiguration().buildValidatorFactory();
+        		}
+        		else{
+        		    this.validationFactory=Validation.byProvider(this.providerClass).configure().buildValidatorFactory(); 
+        		}
+        		
         	}
         	else{
         		String message =

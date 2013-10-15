@@ -6,6 +6,7 @@
     
 <struts>
  <constant name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+ <constant name="ignoreXMlConfiguration" value="false"/>
  
  <bean type="org.jsr303.validation.interceptor.JSR303ValidationManager" class="org.jsr303.validation.interceptor.DefaultJSR303ValidationManager" scope="singleton"/>
 

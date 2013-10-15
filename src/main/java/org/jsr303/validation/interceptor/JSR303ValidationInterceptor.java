@@ -71,17 +71,19 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
     @SuppressWarnings( "nls" )
     @Override
 	protected String doIntercept(ActionInvocation invocation) throws Exception {
-		/*if(jsr303ValidationManager.getValidator() ==null){
+        Validator validator=this.jsr303ValidationManager.getValidator();
+		if(validator ==null){
 		    
 		    if (LOG.isDebugEnabled()) {
-                LOG.debug("There is not Bean Validator configured in class path. Skipping Bean validation..");
+                LOG.debug("There is no Bean Validator configured in class path. Skipping Bean validation..");
             }
 		     return invocation.invoke();
 		    
-		}*/
+		}
+		
 		 if (LOG.isDebugEnabled()) {
-                LOG.debug("Starting bean validation using "+this.jsr303ValidationManager.getValidator().getClass());
-            }
+                LOG.debug("Starting bean validation using "+validator.getClass());
+          }
 		    
 		    Object action=invocation.getAction();
 		    ActionProxy actionProxy=invocation.getProxy();
@@ -94,37 +96,25 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
 	        }
 		    
 		    // performing jsr303 bean validation
-		    performBeanValidation(action, valueStack, methodName, context);
+		    performBeanValidation(action, valueStack, methodName, context,validator);
 		    
 		    return invocation.invoke();
 		
 		
 	}
     
+  
     @SuppressWarnings( "nls" )
-    protected void performBeanValidation(Object action, ValueStack valueStack, String methodName, String context) throws NoSuchMethodException{
+    protected void performBeanValidation(Object action, ValueStack valueStack, String methodName, String context,Validator validator) throws NoSuchMethodException{
         
-        Validator validator = this.jsr303ValidationManager.getValidator();
-
-        if ( validator == null )
-        {
-
-            if ( LOG.isDebugEnabled() )
-            {
-                LOG.debug( "There is not Bean Validator configured in class path. Skipping Bean validation.." );
-            }
-
-            // we will not do anything let's continue
-            return;
-        }
-        
+       LOG.debug( "Initiating bean valdation..");
        Set<ConstraintViolation<Object>> constraintViolations= validator.validate(action);
        addBeanValidationErros(constraintViolations,action,valueStack,null,validator);
      
        
     }
     
-    // parentFieldName has been taken from Oval plugin ;)
+    
     @SuppressWarnings( "nls" )
     private void addBeanValidationErros( Set<ConstraintViolation<Object>> constraintViolations, Object action,
                                          ValueStack valueStack, String parentFieldname , Validator validator)
@@ -136,7 +126,7 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
                  String key = constraintViolation.getMessage();
                 String message = key;
                 try {
-                    message = validatorContext.getText(key);
+                     message = validatorContext.getText(key);
                 } catch (Exception e) {
                     LOG.error("Error while trying to fetch message", e);
                 }
@@ -160,8 +150,7 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
                     	LOG.debug("Adding field error [#0] with message '#1'", fieldName, validationError.getMessage());
                     }
                     validatorContext.addFieldError(fieldName, validationError.getMessage());
-                    
-                   // addBeanValidationErros(constraintViolations, action, valueStack, fieldName);
+                                  
                 }
             }
         }
