@@ -55,9 +55,9 @@ public class DefaultJSR303ValidationManager implements JSR303ValidationManager
     
    
     
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked", "rawtypes", "nls" })
 	@Inject
-    public DefaultJSR303ValidationManager(@Inject(value=ValidatorConstants.PROVIDER_CLASS,required=true) String providerClassName)
+    public DefaultJSR303ValidationManager(@Inject(value=ValidatorConstants.PROVIDER_CLASS,required=false) String providerClassName)
     {
         super();
         LOG.info("Initializing bean validation11 factory to get a validator");
@@ -119,11 +119,11 @@ public class DefaultJSR303ValidationManager implements JSR303ValidationManager
        return getValidationFactory().getValidator();
     }
     
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "nls" })
     private ValidatorFactory getValidationFactory(){
-        if(validationFactory ==null){
-        	if(providerClass !=null){
-        		LOG.info("Creating validation factory for {}", providerClass.getName());
+        if(this.validationFactory ==null){
+        	if(this.providerClass !=null){
+        		LOG.info("Creating validation factory for {}", this.providerClass.getName());
         		this.validationFactory=Validation.byProvider(this.providerClass).configure().buildValidatorFactory();
         	}
         	else{
@@ -136,7 +136,7 @@ public class DefaultJSR303ValidationManager implements JSR303ValidationManager
         	}
        }
         
-        return validationFactory;
+        return this.validationFactory;
     }
     
     

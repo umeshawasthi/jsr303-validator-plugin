@@ -11,4 +11,6 @@ public final class ValidatorConstants {
 	
 	public static final String PROVIDER_CLASS = "providerClass";
 	public static final String FIELD_SEPERATOR=".";
+	public static final String MODELDRIVEN_PREFIX="model";
+	public static final String EMPTY_SPACE="";
 }
