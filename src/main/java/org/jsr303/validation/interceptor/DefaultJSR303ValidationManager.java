@@ -139,7 +139,7 @@ public class DefaultJSR303ValidationManager implements JSR303ValidationManager
     private ValidatorFactory getValidationFactory(){
         if(this.validationFactory ==null){
         	if(this.providerClass !=null){
-        		LOG.info("Creating validation factory for {}", this.providerClass.getName());
+        		LOG.info("Creating validation factory for "+this.providerClass.getName());
         		if(this.ignoreXMlConfiguration){
         		    
         		    String message =
