@@ -37,3 +37,14 @@ This plugin itself do not provide JSR-303 Specific validationn but will use unde
 
 For general information on JSR-303, see the Bean Validation Specification. 
 For information on the specific capabilities of the default reference implementation, see the Hibernate Validator documentation.
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-12895099-2', 'github.com');
+  ga('send', 'pageview');
+
+</script>
