@@ -28,14 +28,13 @@ import java.lang.annotation.Target;
  * @version 1.0
  */
 
-
-@Target({TYPE, ANNOTATION_TYPE})
-@Retention(RUNTIME)
 @Constraint(validatedBy = FieldMatchValidator.class)
 @Documented
+@Target({TYPE, ANNOTATION_TYPE})
+@Retention(RUNTIME)
 public @interface FieldMatch
 {
-    String message() default "{constraints.fieldmatch}";
+    String message() default "Fields are not matching";
 
     Class<?>[] groups() default {};
 
