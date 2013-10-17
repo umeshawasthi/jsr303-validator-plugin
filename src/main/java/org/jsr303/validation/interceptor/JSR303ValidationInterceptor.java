@@ -174,10 +174,15 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
      */
     protected boolean isActionError(ConstraintViolation<Object> violation) {
     	
-    	if(violation.getPropertyPath().iterator().next().getName() == null){
+        if(violation.getLeafBean() == violation.getInvalidValue()){
+            return true;
+        }
+        return false;
+       
+        /* if(violation.getPropertyPath().iterator().next().getName() == null){
     		return true;
     	}
-    	return false;
+    	return false;*/
     }
     
   /**
