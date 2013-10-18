@@ -3,8 +3,8 @@
  *  Struts2-JSR303-beanValidation-Plugin - An Open Source Struts2 Plugin to hook Bean Validator.
  *  =================================================================================================================
  *
- *  Copyright (C) 2012 by Umesh Awasthi
- *  http://code.google.com/p/struts2-jsr303-validator/
+ *  Copyright (C) 2013 by Umesh Awasthi
+ *  https://github.com/umeshawasthi/jsr303-validator-plugin
  *
  * **********************************************************************************************************************
  *

@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	
 	<modelVersion>4.0.0</modelVersion>
-  <groupId>org.jsr303Validation</groupId>
+  <groupId>org.tr.jsr303Validation</groupId>
   <artifactId>struts2-jsr303-validation-plugin</artifactId>
   <packaging>jar</packaging>
   <version>1.0</version>
