@@ -19,7 +19,7 @@
  *
  * **********************************************************************************************************************/
 
-package org.jsr303.validation.interceptor;
+package org.tr.jsr303.validation.interceptor;
 
 import java.util.Set;
 
@@ -27,7 +27,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.apache.commons.lang3.StringUtils;
-import org.jsr303.validation.constant.ValidatorConstants;
+import org.tr.jsr303.validation.constant.ValidatorConstants;
 
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.ActionProxy;

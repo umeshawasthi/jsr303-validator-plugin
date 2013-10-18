@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.jsr303.validation.util;
+package org.tr.jsr303.validation.util;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;

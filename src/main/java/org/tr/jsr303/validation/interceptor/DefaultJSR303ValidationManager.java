@@ -18,7 +18,7 @@
  *  specific language governing permissions and limitations under the License.
  *
  * **********************************************************************************************************************/
-package org.jsr303.validation.interceptor;
+package org.tr.jsr303.validation.interceptor;
 
 import javax.validation.Configuration;
 import javax.validation.Validation;
@@ -27,7 +27,7 @@ import javax.validation.ValidatorFactory;
 import javax.validation.spi.ValidationProvider;
 
 import org.apache.commons.lang3.StringUtils;
-import org.jsr303.validation.constant.ValidatorConstants;
+import org.tr.jsr303.validation.constant.ValidatorConstants;
 
 import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.util.logging.Logger;

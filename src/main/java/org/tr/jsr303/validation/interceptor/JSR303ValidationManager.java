@@ -18,7 +18,7 @@
  *  specific language governing permissions and limitations under the License.
  *
  * **********************************************************************************************************************/
-package org.jsr303.validation.interceptor;
+package org.tr.jsr303.validation.interceptor;
 
 import javax.validation.Validator;
 

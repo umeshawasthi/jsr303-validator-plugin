@@ -1,13 +1,13 @@
 /**
  * 
  */
-package org.jsr303.constraints.impl;
+package org.tr.jsr303.constraints.impl;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.jsr303.constraints.FieldMatch;
-import org.jsr303.validation.util.BeanUtils;
+import org.tr.jsr303.constraints.FieldMatch;
+import org.tr.jsr303.validation.util.BeanUtils;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.jsr303.validation.constant;
+package org.tr.jsr303.validation.constant;
 
 /**
  * <p>Class consisting various constant values being used within 
