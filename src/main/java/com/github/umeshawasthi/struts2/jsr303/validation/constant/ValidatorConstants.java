@@ -18,7 +18,7 @@
  *  specific language governing permissions and limitations under the License.
  *
  * **********************************************************************************************************************/
-package org.tr.jsr303.validation.constant;
+package com.github.umeshawasthi.struts2.jsr303.validation.constant;
 
 /**
  * <p>Class consisting various constant values being used within 

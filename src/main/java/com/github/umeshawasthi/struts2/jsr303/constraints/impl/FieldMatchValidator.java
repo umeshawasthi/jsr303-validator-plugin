@@ -18,14 +18,13 @@
  *  specific language governing permissions and limitations under the License.
  *
  * **********************************************************************************************************************/
-package org.tr.jsr303.constraints.impl;
+package com.github.umeshawasthi.struts2.jsr303.constraints.impl;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import org.tr.jsr303.constraints.FieldMatch;
-import org.tr.jsr303.validation.util.BeanUtils;
-
+import com.github.umeshawasthi.struts2.jsr303.constraints.FieldMatch;
+import com.github.umeshawasthi.struts2.jsr303.validation.util.BeanUtils;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 

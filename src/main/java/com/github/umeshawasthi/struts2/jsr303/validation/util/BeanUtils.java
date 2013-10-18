@@ -18,7 +18,7 @@
  *  specific language governing permissions and limitations under the License.
  *
  * **********************************************************************************************************************/
-package org.tr.jsr303.validation.util;
+package com.github.umeshawasthi.struts2.jsr303.validation.util;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;

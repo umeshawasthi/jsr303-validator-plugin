@@ -5,14 +5,14 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
     
 <struts>
- <constant name="struts.beanValidator,providerClass" value=""/>
- <constant name="struts.beanValidator.ignoreXMLConfiguration" value="false"/>
+ <constant name="struts.jsr303.beanValidator,providerClass" value=""/>
+ <constant name="struts.jsr303.beanValidator.ignoreXMLConfiguration" value="false"/>
  
- <bean type="org.tr.jsr303.validation.interceptor.JSR303ValidationManager" class="org.tr.jsr303.validation.interceptor.DefaultJSR303ValidationManager" scope="singleton"/>
+ <bean type="com.github.umeshawasthi.struts2.jsr303.validation.interceptor.JSR303ValidationManager" class="com.github.umeshawasthi.struts2.jsr303.validation.interceptor.DefaultJSR303ValidationManager" scope="singleton"/>
 
  <package name="jsr303" extends="struts-default">
            <interceptors>
-               <interceptor name="beanValidation" class="org.tr.jsr303.validation.interceptor.JSR303ValidationInterceptor" />
+               <interceptor name="beanValidation" class="com.github.umeshawasthi.struts2.jsr303.validation.interceptor.JSR303ValidationInterceptor" />
 
                <interceptor-stack name="jsr303ValidationStack">
                    <interceptor-ref name="exception"/>

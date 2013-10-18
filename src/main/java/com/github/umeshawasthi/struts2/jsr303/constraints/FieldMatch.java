@@ -18,7 +18,7 @@
  *  specific language governing permissions and limitations under the License.
  *
  * **********************************************************************************************************************/
-package org.tr.jsr303.constraints;
+package com.github.umeshawasthi.struts2.jsr303.constraints;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.TYPE;
@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import org.tr.jsr303.constraints.impl.FieldMatchValidator;
+import com.github.umeshawasthi.struts2.jsr303.constraints.impl.FieldMatchValidator;
 
 
 /**
