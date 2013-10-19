@@ -9,16 +9,16 @@ There are a number of built-in constraints you can take advantage of. You may al
 
 To illustrate, consider a simple PersonForm model with two properties:
 
-<code>
+```xml
 public class PersonForm {
     private String name;
     private int age;
 	
 }
-</code>
+```
 JSR-303 allows you to define declarative validation constraints against such properties.
 
-<code>
+```xml
 public class PersonForm {
 
     @NotNull
@@ -29,7 +29,7 @@ public class PersonForm {
     private int age;
 
 }
-</code>
+```
 When an instance of this class is validated by a JSR-303 Validator, these constraints will be enforced. 
 
 A JSR-303 Bean Validation Plguin for Struts2.
@@ -53,7 +53,7 @@ For information on the specific capabilities of the default reference implementa
 
 </script>
 
-h2. Introduction
+# Introduction
 
 # Getting Started #
 This tutorial will give you introduction as how to use Struts2-jsr303 validation plugin.I am assuming that person has basic understanding about bean Validation API and its specifications.
