@@ -91,7 +91,7 @@ _Make sure to add Hibernate validator or Apache Bval in your Struts2 application
 
 ## Adding Bean validation API in your Application
 
-  ###  Hibernate validator
+###  Hibernate validator
 ```xml
  <dependency>
             <groupId>org.hibernate</groupId>
@@ -99,7 +99,7 @@ _Make sure to add Hibernate validator or Apache Bval in your Struts2 application
             <version>4.3.1.Final</version>
         </dependency>
 ```
-  Apache Bval validator
+### Apache Bval validator
 ```xml
    <dependency>
 	<groupId>org.apache.geronimo.specs</groupId>
