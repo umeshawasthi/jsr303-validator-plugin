@@ -141,7 +141,7 @@ Plugin try to work and search in class path about Bean validator provider, but y
 </struts2>
 ```
  
- Please not setting `struts.jsr303.beanValidator.providerClass` is not required,however in case you have multiple provider in your
+ Please note that  setting `struts.jsr303.beanValidator.providerClass` constant is not required,however in case you have multiple provider in your
  classpath and want your prefreed bean validator, you can always set it by `struts.jsr303.beanValidator.providerClass` constant in 
  your struts.xml file.
  
