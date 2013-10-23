@@ -64,8 +64,9 @@ We need to install `Struts2 JSR303 bean validation Plugin`.You can either downlo
 and `validation-api` version 1.0.0.GA from [download validation-api 1.0.0](http://mvnrepository.com/artifact/javax.validation/validation-api/1.0.0.GA)
 you can also use maven to take care of adding plugin to your `Struts2` application.Add following to you `pom.xml`
 
+### Using Maven
 ```xml
-<dependency>`
+<dependency>
   <groupId>com.github.umeshawasthi</groupId>
   <artifactId>struts2-jsr303-validation-plugin</artifactId>
   <version>1.0</version>
