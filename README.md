@@ -33,7 +33,7 @@ public class PersonForm {
 When an instance of this class is validated by a JSR-303 Validator, these constraints will be enforced. 
 
 A JSR-303 Bean Validation Plguin for Struts2.
-This Plugin work as a bridge between Struts2 request flow and JSR-303 Compliant bean Validator like Hibernate Validator.
+This Plugin works as a bridge between Struts2 request flow and JSR-303 Compliant bean Validator like Hibernate Validator.
 
 This plugin itself do not provide JSR-303 Specific validationn but will use underlying validator to perform bean validation.
 
