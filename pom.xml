@@ -10,7 +10,12 @@
 	<name>Struts2 JSR303 bean validation Plugin</name>
 	<description>A Struts2 plugin for adding JSR-303 bean validation support.Plugin will be able to integrate itself with Hibernate Bean validator or Apache Bean validator.</description>
 	<url>https://github.com/umeshawasthi/jsr303-validator-plugin</url>
-
+     <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+     
 	<developers>
 		<developer>
 			<id>umeshawasthi</id>
@@ -80,7 +85,7 @@
 		</resources>
 		<!-- end -->
 		
-		<!-- <plugins>
+		<plugins>
 		<plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
@@ -95,7 +100,7 @@
         </executions>
       </plugin>
 		
-		</plugins> -->
+		</plugins>
 	</build>
 
 </project>

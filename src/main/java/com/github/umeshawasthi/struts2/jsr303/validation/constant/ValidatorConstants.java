@@ -37,8 +37,8 @@ package com.github.umeshawasthi.struts2.jsr303.validation.constant;
 @SuppressWarnings( "nls" )
 public final class ValidatorConstants {
 	
-    public static final String PROVIDER_CLASS = "struts.beanValidator,providerClass";
-	public static final String IGNORE_XMLCONFIGURAITION="struts.beanValidator.ignoreXMLConfiguration";
+    public static final String PROVIDER_CLASS = "struts.jsr303.beanValidator.providerClass";
+	public static final String IGNORE_XMLCONFIGURAITION="struts.jsr303.beanValidator.ignoreXMLConfiguration";
 	public static final String FIELD_SEPERATOR=".";
 	public static final String MODELDRIVEN_PREFIX="model";
 	public static final String EMPTY_SPACE="";

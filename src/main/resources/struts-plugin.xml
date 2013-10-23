@@ -5,7 +5,7 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
     
 <struts>
- <constant name="struts.jsr303.beanValidator,providerClass" value=""/>
+ <constant name="struts.jsr303.beanValidator.providerClass" value=""/>
  <constant name="struts.jsr303.beanValidator.ignoreXMLConfiguration" value="false"/>
  
  <bean type="com.github.umeshawasthi.struts2.jsr303.validation.interceptor.JSR303ValidationManager" class="com.github.umeshawasthi.struts2.jsr303.validation.interceptor.DefaultJSR303ValidationManager" scope="singleton"/>
