@@ -129,4 +129,26 @@ You can directly provide messages in validation constraints itself
 
 In case of no message, plugin will fall back to default messages provided by Validation API.
 
+## Configuring Provider Class
+Plugin try to work and search in class path about Bean validator provider, but you can always provider your prefered Bean Validator by setting 
+`struts.jsr303.beanValidator.providerClass` in struts.xml file or in property file
+
+ `<constant name="struts.jsr303.beanValidator.providerClass" value="org.hibernate.validator.HibernateValidator"/>`
+ 
+ Please not setting `struts.jsr303.beanValidator.providerClass` is not required,however in case you have multiple provider in your
+ classpath and want your prefreed bean validator, you can always set it by `struts.jsr303.beanValidator.providerClass` constant in 
+ your struts.xml file.
+ 
+ For your convience, here is the list of provider 
+ 
+ ### Hibernate 
+ org.hibernate.validator.HibernateValidator
+ 
+ ### Apache Bval
+ org.apache.bval.jsr303.ApacheValidationProvider
+ 
+ You can always look inside `META-INF/services/javax.validation.spi.ValidationProvider'.
+ 
+ 
+
 
