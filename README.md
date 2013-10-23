@@ -60,7 +60,7 @@ This tutorial will give you introduction as how to use Struts2-jsr303 validation
 
 ## Step: Install
 
-We need to install `Struts2 JSR303 bean validation Plugin`.You can either download plugin jar manually from [download page](https://github.com/umeshawasthi/jsr303-validator-plugin) and include reference implementation
+We need to install `Struts2 JSR303 bean validation Plugin`.You can either download plugin jar manually from [download page](http://central.maven.org/maven2/com/github/umeshawasthi/struts2-jsr303-validation-plugin) and include reference implementation
 and `validation-api` version 1.0.0.GA from [download validation-api 1.0.0](http://mvnrepository.com/artifact/javax.validation/validation-api/1.0.0.GA)
 you can also use maven to take care of adding plugin to your `Struts2` application.Add following to you `pom.xml`
 
