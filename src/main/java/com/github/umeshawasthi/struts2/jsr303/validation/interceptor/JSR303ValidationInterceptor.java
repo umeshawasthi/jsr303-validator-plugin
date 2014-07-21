@@ -116,8 +116,18 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
     @SuppressWarnings( "nls" )
     protected void performBeanValidation(Object action, ValueStack valueStack, String methodName, String context,Validator validator) throws NoSuchMethodException{
         
-       LOG.debug( "Initiating bean valdation..");
-       Set<ConstraintViolation<Object>> constraintViolations= validator.validate(action);
+       LOG.debug("Initiating bean valdation..");
+
+       Set<ConstraintViolation<Object>> constraintViolations = null;
+
+       if (action instanceof ModelDriven) {
+          LOG.debug("Performing validation on model..");
+          constraintViolations = validator.validate(((ModelDriven) action).getModel());
+       } else {
+          LOG.debug("Performing validation on action..");
+          constraintViolations = validator.validate(action);
+       }
+
        addBeanValidationErros(constraintViolations,action,valueStack,null,validator);
      
        
