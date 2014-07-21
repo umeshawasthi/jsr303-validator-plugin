@@ -21,12 +21,15 @@
 
 package com.github.umeshawasthi.struts2.jsr303.validation.interceptor;
 
+import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.github.umeshawasthi.struts2.jsr303.validation.constant.ValidatorConstants;
 import com.opensymphony.xwork2.ActionInvocation;
@@ -34,6 +37,7 @@ import com.opensymphony.xwork2.ActionProxy;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.interceptor.MethodFilterInterceptor;
+import com.opensymphony.xwork2.util.AnnotationUtils;
 import com.opensymphony.xwork2.util.ValueStack;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
@@ -95,8 +99,13 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
 	            LOG.debug("Validating [#0/#1] with method [#2]", invocation.getProxy().getNamespace(), invocation.getProxy().getActionName(), methodName);
 	        }
 		    
-		    // performing jsr303 bean validation
-		    performBeanValidation(action, valueStack, methodName, context,validator);
+		    Collection<Method> annotatedMethods = AnnotationUtils.getAnnotatedMethods(action.getClass(),
+		        SkipValidation.class);
+
+		    if (!annotatedMethods.contains(getActionMethod(action.getClass(), methodName))) {
+		        // performing jsr303 bean validation
+		        performBeanValidation(action, valueStack, methodName, context, validator);
+		    }
 		    
 		    return invocation.invoke();
 		
@@ -183,6 +192,30 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
     		return true;
     	}
     	return false;*/
+    }
+    
+    /**
+     * This is copied from DefaultActionInvocation
+     */
+    protected Method getActionMethod(Class actionClass, String methodName)
+        throws NoSuchMethodException {
+        Method method;
+
+        try {
+            method = actionClass.getMethod(methodName, new Class[0]);
+        } catch (NoSuchMethodException e) {
+            // hmm -- OK, try doXxx instead
+            try {
+                String altMethodName = "do" + methodName.substring(0, 1).toUpperCase() +
+                    methodName.substring(1);
+                method = actionClass.getMethod(altMethodName, new Class[0]);
+            } catch (NoSuchMethodException e1) {
+                // throw the original one
+                throw e;
+            }
+        }
+
+        return method;
     }
     
   /**
