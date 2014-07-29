@@ -7,7 +7,7 @@ JSR-303 standardizes validation constraint declaration and metadata for the Java
 you annotate domain model properties with declarative validation constraints and the runtime enforces them. 
 There are a number of built-in constraints you can take advantage of. You may also define your own custom constraints. 
 
-To illustrate, consider a simple PersonForm model with two properties:
+To illustrate, consider a simple PersonForm model with two properties defined:
 
 ```xml
 public class PersonForm {
