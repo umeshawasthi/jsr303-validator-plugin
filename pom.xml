@@ -1,91 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.umeshawasthi</groupId>
-	<artifactId>struts2-jsr303-validation-plugin</artifactId>
-	<packaging>jar</packaging>
-	<version>1.1</version>
-	<name>Struts2 JSR303 bean validation Plugin</name>
-	<description>A Struts2 plugin for adding JSR-303 bean validation support.Plugin will be able to integrate itself with Hibernate Bean validator or Apache Bean validator.</description>
-	<url>https://github.com/umeshawasthi/jsr303-validator-plugin</url>
-     <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
-  </parent>
-     
-	<developers>
-		<developer>
-			<id>umeshawasthi</id>
-			<name>Umesh Awasthi</name>
-			<email>umeshawasthi@gmail.com</email>
-			<timezone>+5.30</timezone>
-		</developer>
-	</developers>
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.umeshawasthi</groupId>
+    <artifactId>struts2-jsr303-validation-plugin</artifactId>
+    <packaging>jar</packaging>
+    <version>1.1</version>
+    <name>Struts2 JSR303 bean validation Plugin</name>
+    <description>A Struts2 plugin for adding JSR-303 bean validation support.Plugin will be able to integrate itself
+        with Hibernate Bean validator or Apache Bean validator.
+    </description>
+    <url>https://github.com/umeshawasthi/jsr303-validator-plugin</url>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
 
-	<scm>
-		<connection>scm:https://github.com/umeshawasthi/jsr303-validator-plugin.git</connection>
-		<developerConnection>scm: https://github.com/umeshawasthi/jsr303-validator-plugin.git</developerConnection>
-		<url> https://github.com/umeshawasthi/jsr303-validator-plugin.git</url>
-	</scm>
+    <developers>
+        <developer>
+            <id>umeshawasthi</id>
+            <name>Umesh Awasthi</name>
+            <email>umeshawasthi@gmail.com</email>
+            <timezone>+5.30</timezone>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-	<properties>
-		<struts2.version>2.3.24</struts2.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <scm>
+        <connection>scm:https://github.com/umeshawasthi/jsr303-validator-plugin.git</connection>
+        <developerConnection>scm: https://github.com/umeshawasthi/jsr303-validator-plugin.git</developerConnection>
+        <url>https://github.com/umeshawasthi/jsr303-validator-plugin.git</url>
+    </scm>
 
-	</properties>
+    <properties>
+        <struts2.version>2.3.24</struts2.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-	<dependencies>
+    </properties>
 
-		<dependency>
-			<groupId>org.apache.struts</groupId>
-			<artifactId>struts2-core</artifactId>
-			<version>${struts2.version}</version>
-		</dependency>
+    <dependencies>
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.4</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>1.1.0.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-core</artifactId>
+            <version>${struts2.version}</version>
+        </dependency>
 
-	</dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.1.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
 
-	<build>
-		<defaultGoal>install</defaultGoal>
-		<!-- only for testing -->
-		<resources>
-			<resource>
-				<directory>${basedir}/src/main/resources</directory>
-			</resource>
-			<resource>
-				<directory>${basedir}/src/main/java</directory>
-			</resource>
-		</resources>
-		<!-- end -->
-		
-		
-	</build>
+    </dependencies>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <!-- only for testing -->
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/java</directory>
+            </resource>
+        </resources>
+        <!-- end -->
+
+
+    </build>
 
 </project>
