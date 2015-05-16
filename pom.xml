@@ -6,7 +6,7 @@
 	<groupId>com.github.umeshawasthi</groupId>
 	<artifactId>struts2-jsr303-validation-plugin</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0</version>
+	<version>1.1</version>
 	<name>Struts2 JSR303 bean validation Plugin</name>
 	<description>A Struts2 plugin for adding JSR-303 bean validation support.Plugin will be able to integrate itself with Hibernate Bean validator or Apache Bean validator.</description>
 	<url>https://github.com/umeshawasthi/jsr303-validator-plugin</url>
@@ -39,7 +39,7 @@
 	</scm>
 
 	<properties>
-		<struts2.version>2.3.15.2</struts2.version>
+		<struts2.version>2.3.24</struts2.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 	</properties>
@@ -61,7 +61,7 @@
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			<version>1.0.0.GA</version>
+			<version>1.1.0.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
