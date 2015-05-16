@@ -46,13 +46,13 @@ import com.opensymphony.xwork2.validator.ValidatorContext;
 
 /**
  * <p>
- * JSR 303 bean Validation interceeptor.This Intercepter do not itself provide any Bean validation functionality but
+ * JSR 303 bean Validation interceptor. This Interceptor do not itself provide any Bean validation functionality but
  * works as a bridge between JSR303 Bean validation specification and Struts2 validation mechanism.
  * </p>
  * <p>
- * Intercepter will create a Validation Factory based on the provider class and will validate requested method or Action
+ * Interceptor will create a Validation Factory based on the provider class and will validate requested method or Action
  * class. Hibernate bean validator will be used as a default validator in case of no provider class will be supplied to
- * the intercepter.
+ * the interceptor.
  * </p>
  * 
  * @author Umesh Awasthi
@@ -116,7 +116,7 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
     @SuppressWarnings( "nls" )
     protected void performBeanValidation(Object action, ValueStack valueStack, String methodName, String context,Validator validator) throws NoSuchMethodException{
         
-       LOG.debug("Initiating bean valdation..");
+       LOG.debug("Initiating bean validation..");
 
        Set<ConstraintViolation<Object>> constraintViolations = null;
 

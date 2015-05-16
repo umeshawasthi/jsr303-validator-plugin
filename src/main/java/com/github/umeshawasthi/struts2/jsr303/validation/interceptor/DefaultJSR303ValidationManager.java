@@ -80,8 +80,8 @@ public class DefaultJSR303ValidationManager
             }
             catch ( ClassNotFoundException e )
             {
-                LOG.error( "Unable to find any bean validator implimentation for " + providerClassName );
-                LOG.error( "Unable to load bean validation prvider class", e );
+                LOG.error( "Unable to find any bean validator implementation for " + providerClassName );
+                LOG.error( "Unable to load bean validation provider class", e );
             }
 
         }
@@ -135,7 +135,6 @@ public class DefaultJSR303ValidationManager
      * returned by the ValidationProviderResolver instance is used.</li>
      * </p>
      */
-    @Override
     public Validator getValidator()
     {
         return this.validationFactory.getValidator();
