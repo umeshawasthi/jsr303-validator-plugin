@@ -63,11 +63,23 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
     private static final Logger LOG = LoggerFactory.getLogger(JSR303ValidationInterceptor.class);
     private static final long serialVersionUID = 1L;
     protected JSR303ValidationManager jsr303ValidationManager;
+    protected boolean convertToUtf8 = false;
+    protected String convertFromEncoding = "ISO-8859-1";
 
 
     @Inject()
     public void setJsr303ValidationManager(JSR303ValidationManager jsr303ValidationManager) {
         this.jsr303ValidationManager = jsr303ValidationManager;
+    }
+
+    @Inject(value = ValidatorConstants.CONVERT_MESSAGE_TO_UTF8, required = false)
+    public void setConvertToUtf8(String convertToUtf8) {
+        this.convertToUtf8 = Boolean.valueOf(convertToUtf8);
+    }
+
+    @Inject(value = ValidatorConstants.CONVERT_MESSAGE_FROM, required = false)
+    public void setConvertFromEncoding(String convertFromEncoding) {
+        this.convertFromEncoding = convertFromEncoding;
     }
 
 
@@ -141,6 +153,9 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
                 String message = key;
                 try {
                     message = validatorContext.getText(key);
+                    if(convertToUtf8 && StringUtils.isNotBlank(message)) {
+                        message = new String(message.getBytes(convertFromEncoding), "UTF-8");
+                    }
                 } catch (Exception e) {
                     LOG.error("Error while trying to fetch message", e);
                 }

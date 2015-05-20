@@ -7,6 +7,8 @@
 <struts>
     <constant name="struts.jsr303.beanValidator.providerClass" value=""/>
     <constant name="struts.jsr303.beanValidator.ignoreXMLConfiguration" value="false"/>
+    <constant name="struts.jsr303.beanValidator.convertMessageToUtf" value="false"/>
+    <constant name="struts.jsr303.beanValidator.convertMessageFromEncoding" value="ISO-8859-1"/>
 
     <bean type="com.github.umeshawasthi.struts2.jsr303.validation.interceptor.JSR303ValidationManager"
           class="com.github.umeshawasthi.struts2.jsr303.validation.interceptor.DefaultJSR303ValidationManager"
