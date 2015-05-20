@@ -1,37 +1,38 @@
-/*******************************************************************************
- *
- *  Struts2-JSR303-beanValidation-Plugin - An Open Source Struts2 Plugin to hook Bean Validator.
- *  =================================================================================================================
- *
- *  Copyright (C) 2013 by Umesh Awasthi
- *  https://github.com/umeshawasthi/jsr303-validator-plugin
- *
+/**
+ * ****************************************************************************
+ * <p/>
+ * Struts2-JSR303-beanValidation-Plugin - An Open Source Struts2 Plugin to hook Bean Validator.
+ * =================================================================================================================
+ * <p/>
+ * Copyright (C) 2013 by Umesh Awasthi
+ * https://github.com/umeshawasthi/jsr303-validator-plugin
+ * <p/>
  * **********************************************************************************************************************
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- *  the License. You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- *  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- *  specific language governing permissions and limitations under the License.
- *
- * **********************************************************************************************************************/
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ * <p/>
+ * *********************************************************************************************************************
+ */
 package com.github.umeshawasthi.struts2.jsr303.validation.interceptor;
+
+import com.github.umeshawasthi.struts2.jsr303.validation.constant.ValidatorConstants;
+import com.opensymphony.xwork2.inject.Inject;
+import com.opensymphony.xwork2.util.logging.Logger;
+import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.Configuration;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import javax.validation.spi.ValidationProvider;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.github.umeshawasthi.struts2.jsr303.validation.constant.ValidatorConstants;
-import com.opensymphony.xwork2.inject.Inject;
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
 
 /**
  * <p>
@@ -48,69 +49,61 @@ import com.opensymphony.xwork2.util.logging.LoggerFactory;
  * <li>Apache Bean Validator
  * </p>
  * </p>
- * 
+ *
  * @author Umesh Awasthi
  */
 public class DefaultJSR303ValidationManager
-    implements JSR303ValidationManager
-{
+        implements JSR303ValidationManager {
 
-    private static final Logger LOG = LoggerFactory.getLogger( DefaultJSR303ValidationManager.class );
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultJSR303ValidationManager.class);
 
-    @SuppressWarnings( "rawtypes" )
+    @SuppressWarnings("rawtypes")
     protected Class<? extends ValidationProvider> providerClass;
 
     private ValidatorFactory validationFactory;
 
-    @SuppressWarnings( { "unchecked", "rawtypes", "nls" } )
+    @SuppressWarnings({"unchecked", "rawtypes", "nls"})
     @Inject
-    public DefaultJSR303ValidationManager( @Inject( value = ValidatorConstants.PROVIDER_CLASS, required = false )
-    String providerClassName, @Inject( value = ValidatorConstants.IGNORE_XMLCONFIGURAITION, required = false )
-    String ignoreXMLConfiguration )
-    {
+    public DefaultJSR303ValidationManager(@Inject(value = ValidatorConstants.PROVIDER_CLASS, required = false)
+                                          String providerClassName, @Inject(value = ValidatorConstants.IGNORE_XMLCONFIGURAITION, required = false)
+                                          String ignoreXMLConfiguration) {
         super();
-        LOG.info( "Initializing bean validation11 factory to get a validator" );
+        LOG.info("Initializing bean validation11 factory to get a validator");
 
-        if ( StringUtils.isNotBlank( providerClassName ) )
-        {
-            try
-            {
-                this.providerClass = (Class<? extends ValidationProvider>) Class.forName( providerClassName );
-                LOG.info( this.providerClass.getName() + " validator found" );
-            }
-            catch ( ClassNotFoundException e )
-            {
-                LOG.error( "Unable to find any bean validator implimentation for " + providerClassName );
-                LOG.error( "Unable to load bean validation prvider class", e );
+        if (StringUtils.isNotBlank(providerClassName)) {
+            try {
+                this.providerClass = (Class<? extends ValidationProvider>) Class.forName(providerClassName);
+                LOG.info(this.providerClass.getName() + " validator found");
+            } catch (ClassNotFoundException e) {
+                LOG.error("Unable to find any bean validator implementation for " + providerClassName);
+                LOG.error("Unable to load bean validation provider class", e);
             }
 
         }
         if (LOG.isDebugEnabled()) {
-            if(this.providerClass == null){
-                
+            if (this.providerClass == null) {
+
                 String message =
-                                "**********No bean validator class defined **********\n"
-                                    + "Falling back to default provider \n";
-                LOG.debug( message );
-               
+                        "**********No bean validator class defined **********\n"
+                                + "Falling back to default provider \n";
+                LOG.debug(message);
+
             }
         }
-        
+
         Configuration configuration =
-            ( this.providerClass != null ? Validation.byProvider( this.providerClass ).configure()
-                            : Validation.byDefaultProvider().configure() );
-        if ( "true".equalsIgnoreCase( ignoreXMLConfiguration ) )
-        {
+                (this.providerClass != null ? Validation.byProvider(this.providerClass).configure()
+                        : Validation.byDefaultProvider().configure());
+        if ("true".equalsIgnoreCase(ignoreXMLConfiguration)) {
             configuration.ignoreXmlConfiguration();
             String message =
-                            "**********Setting ignoreXmlConfiguration flag to true **********\n"
-                                + "XML configurations will be ignore by Validator \n"
-                                + "To enable XML based validation, set ignoreXmlConfiguration to false.\n";
-            LOG.info( message );
+                    "**********Setting ignoreXmlConfiguration flag to true **********\n"
+                            + "XML configurations will be ignore by Validator \n"
+                            + "To enable XML based validation, set ignoreXmlConfiguration to false.\n";
+            LOG.info(message);
         }
-        if ( configuration != null )
-        {
-            
+        if (configuration != null) {
+
             this.validationFactory = configuration.buildValidatorFactory();
 
         }
@@ -135,9 +128,7 @@ public class DefaultJSR303ValidationManager
      * returned by the ValidationProviderResolver instance is used.</li>
      * </p>
      */
-    @Override
-    public Validator getValidator()
-    {
+    public Validator getValidator() {
         return this.validationFactory.getValidator();
 
     }

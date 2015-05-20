@@ -3,43 +3,48 @@
 <!DOCTYPE struts PUBLIC
         "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
         "http://struts.apache.org/dtds/struts-2.3.dtd">
-    
+
 <struts>
- <constant name="struts.jsr303.beanValidator.providerClass" value=""/>
- <constant name="struts.jsr303.beanValidator.ignoreXMLConfiguration" value="false"/>
- 
- <bean type="com.github.umeshawasthi.struts2.jsr303.validation.interceptor.JSR303ValidationManager" class="com.github.umeshawasthi.struts2.jsr303.validation.interceptor.DefaultJSR303ValidationManager" scope="singleton"/>
+    <constant name="struts.jsr303.beanValidator.providerClass" value=""/>
+    <constant name="struts.jsr303.beanValidator.ignoreXMLConfiguration" value="false"/>
+    <constant name="struts.jsr303.beanValidator.convertMessageToUtf" value="false"/>
+    <constant name="struts.jsr303.beanValidator.convertMessageFromEncoding" value="ISO-8859-1"/>
 
- <package name="jsr303" extends="struts-default">
-           <interceptors>
-               <interceptor name="beanValidation" class="com.github.umeshawasthi.struts2.jsr303.validation.interceptor.JSR303ValidationInterceptor" />
+    <bean type="com.github.umeshawasthi.struts2.jsr303.validation.interceptor.JSR303ValidationManager"
+          class="com.github.umeshawasthi.struts2.jsr303.validation.interceptor.DefaultJSR303ValidationManager"
+          scope="singleton"/>
 
-               <interceptor-stack name="jsr303ValidationStack">
-                   <interceptor-ref name="exception"/>
-                   <interceptor-ref name="alias"/>
-                   <interceptor-ref name="servletConfig"/>
-                   <interceptor-ref name="i18n"/>
-                   <interceptor-ref name="prepare"/>
-                   <interceptor-ref name="chain"/>
-                   <interceptor-ref name="debugging"/>
-                   <interceptor-ref name="profiling"/>
-                   <interceptor-ref name="scopedModelDriven"/>
-                   <interceptor-ref name="modelDriven"/>
-                   <interceptor-ref name="fileUpload"/>
-                   <interceptor-ref name="checkbox"/>
-                   <interceptor-ref name="staticParams"/>
-                   <interceptor-ref name="actionMappingParams"/>
-                   <interceptor-ref name="params">
-                       <param name="excludeParams">dojo\..*,^struts\..*</param>
-                   </interceptor-ref>
-                   <interceptor-ref name="conversionError"/>
-                   <interceptor-ref name="beanValidation">
-                       <param name="excludeMethods">input,back,cancel,browse</param>
-                   </interceptor-ref>
-                   <interceptor-ref name="workflow">
-                       <param name="excludeMethods">input,back,cancel,browse</param>
-                   </interceptor-ref>
-               </interceptor-stack>
-           </interceptors>
+    <package name="jsr303" extends="struts-default">
+        <interceptors>
+            <interceptor name="beanValidation"
+                         class="com.github.umeshawasthi.struts2.jsr303.validation.interceptor.JSR303ValidationInterceptor"/>
+
+            <interceptor-stack name="jsr303ValidationStack">
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="debugging"/>
+                <interceptor-ref name="profiling"/>
+                <interceptor-ref name="scopedModelDriven"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="actionMappingParams"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="beanValidation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
     </package>
- </struts>
+</struts>
