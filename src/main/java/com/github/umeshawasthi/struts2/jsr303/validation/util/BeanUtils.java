@@ -66,14 +66,13 @@ public final class BeanUtils {
         return readMethod.invoke(bean);
     }
 
-    private PropertyDescriptor getPropertyDescriptor(Class<?> beanClass, String propertyname)
+    private PropertyDescriptor getPropertyDescriptor(Class<?> beanClass, String propertyName)
             throws IntrospectionException {
         BeanInfo beanInfo = Introspector.getBeanInfo(beanClass);
         PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
         PropertyDescriptor propertyDescriptor = null;
-        for (int i = 0; i < propertyDescriptors.length; i++) {
-            PropertyDescriptor currentPropertyDescriptor = propertyDescriptors[i];
-            if (currentPropertyDescriptor.getName().equals(propertyname)) {
+        for (PropertyDescriptor currentPropertyDescriptor : propertyDescriptors) {
+            if (currentPropertyDescriptor.getName().equals(propertyName)) {
                 propertyDescriptor = currentPropertyDescriptor;
             }
 

@@ -30,7 +30,6 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.interceptor.MethodFilterInterceptor;
 import com.opensymphony.xwork2.util.AnnotationUtils;
-import com.opensymphony.xwork2.util.ValueStack;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import com.opensymphony.xwork2.validator.DelegatingValidatorContext;
@@ -102,9 +101,7 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
 
         Object action = invocation.getAction();
         ActionProxy actionProxy = invocation.getProxy();
-        ValueStack valueStack = invocation.getStack();
         String methodName = actionProxy.getMethod();
-        String context = actionProxy.getConfig().getName();
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("Validating [#0/#1] with method [#2]", invocation.getProxy().getNamespace(), invocation.getProxy().getActionName(), methodName);
@@ -115,7 +112,7 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
 
         if (!annotatedMethods.contains(getActionMethod(action.getClass(), methodName))) {
             // performing jsr303 bean validation
-            performBeanValidation(action, valueStack, methodName, context, validator);
+            performBeanValidation(action, validator);
         }
 
         return invocation.invoke();
@@ -123,13 +120,12 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
 
     }
 
-
     @SuppressWarnings("nls")
-    protected void performBeanValidation(Object action, ValueStack valueStack, String methodName, String context, Validator validator) throws NoSuchMethodException {
+    protected void performBeanValidation(Object action, Validator validator) {
 
         LOG.debug("Initiating bean validation..");
 
-        Set<ConstraintViolation<Object>> constraintViolations = null;
+        Set<ConstraintViolation<Object>> constraintViolations;
 
         if (action instanceof ModelDriven) {
             LOG.debug("Performing validation on model..");
@@ -139,13 +135,11 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
             constraintViolations = validator.validate(action);
         }
 
-        addBeanValidationErrors(constraintViolations, action, valueStack, null, validator);
+        addBeanValidationErrors(constraintViolations, action);
     }
 
-
     @SuppressWarnings("nls")
-    private void addBeanValidationErrors(Set<ConstraintViolation<Object>> constraintViolations, Object action,
-                                        ValueStack valueStack, String parentFieldname, Validator validator) {
+    private void addBeanValidationErrors(Set<ConstraintViolation<Object>> constraintViolations, Object action) {
         if (constraintViolations != null) {
             ValidatorContext validatorContext = new DelegatingValidatorContext(action);
             for (ConstraintViolation<Object> constraintViolation : constraintViolations) {
@@ -167,13 +161,10 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
                     validatorContext.addActionError(message);
                 } else {
 
-                    ValidationError validationError = buildBeanValidationError(constraintViolation, message, action);
+                    ValidationError validationError = buildBeanValidationError(constraintViolation, message);
                     String fieldName = validationError.getFieldName();
                     if (action instanceof ModelDriven && fieldName.startsWith(ValidatorConstants.MODELDRIVEN_PREFIX)) {
                         fieldName = fieldName.replace("model.", ValidatorConstants.EMPTY_SPACE);
-                    }
-                    if (parentFieldname != null) {
-                        fieldName = parentFieldname + ValidatorConstants.FIELD_SEPERATOR + fieldName;
                     }
                     if (LOG.isDebugEnabled()) {
                         LOG.debug("Adding field error [#0] with message '#1'", fieldName, validationError.getMessage());
@@ -185,7 +176,7 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
     }
 
 
-    protected ValidationError buildBeanValidationError(ConstraintViolation<Object> violation, String message, Object action) {
+    protected ValidationError buildBeanValidationError(ConstraintViolation<Object> violation, String message) {
 
         if (violation.getPropertyPath().iterator().next().getName() != null) {
             String fieldName = violation.getPropertyPath().toString();
@@ -201,16 +192,7 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
      * Decide if a violation should be added to the fieldErrors or actionErrors
      */
     protected boolean isActionError(ConstraintViolation<Object> violation) {
-
-        if (violation.getLeafBean() == violation.getInvalidValue()) {
-            return true;
-        }
-        return false;
-       
-        /* if(violation.getPropertyPath().iterator().next().getName() == null){
-            return true;
-    	}
-    	return false;*/
+        return violation.getLeafBean() == violation.getInvalidValue();
     }
 
     /**
@@ -243,8 +225,8 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
      */
 
     class ValidationError {
-        private String fieldName;
-        private String message;
+        private final String fieldName;
+        private final String message;
 
         ValidationError(String fieldName, String message) {
             this.fieldName = fieldName;

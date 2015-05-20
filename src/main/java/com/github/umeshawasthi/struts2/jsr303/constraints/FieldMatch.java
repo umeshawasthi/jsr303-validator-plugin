@@ -41,13 +41,16 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * An array of fields and their matching confirmation fields can be supplied.
  *
  * Example, compare 1 pair of fields:
+ * <pre>
  * @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match")
+ * </pre>
  *
  * Example, compare more than 1 pair of fields:
+ * <pre>
  * @FieldMatch.List({
  * @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
  * @FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")})
- *
+ *  </pre>
  * @author Umesh Awasthi
  * @version 1.0
  */
