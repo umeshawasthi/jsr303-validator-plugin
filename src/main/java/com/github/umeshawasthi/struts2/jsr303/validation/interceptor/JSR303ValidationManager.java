@@ -32,5 +32,5 @@ import javax.validation.Validator;
  */
 public interface JSR303ValidationManager {
 
-    public Validator getValidator();
+    Validator getValidator();
 }

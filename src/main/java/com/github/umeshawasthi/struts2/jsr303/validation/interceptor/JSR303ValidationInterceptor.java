@@ -127,12 +127,12 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
             constraintViolations = validator.validate(action);
         }
 
-        addBeanValidationErros(constraintViolations, action, valueStack, null, validator);
+        addBeanValidationErrors(constraintViolations, action, valueStack, null, validator);
     }
 
 
     @SuppressWarnings("nls")
-    private void addBeanValidationErros(Set<ConstraintViolation<Object>> constraintViolations, Object action,
+    private void addBeanValidationErrors(Set<ConstraintViolation<Object>> constraintViolations, Object action,
                                         ValueStack valueStack, String parentFieldname, Validator validator) {
         if (constraintViolations != null) {
             ValidatorContext validatorContext = new DelegatingValidatorContext(action);
@@ -164,10 +164,9 @@ public class JSR303ValidationInterceptor extends MethodFilterInterceptor {
                         LOG.debug("Adding field error [#0] with message '#1'", fieldName, validationError.getMessage());
                     }
                     validatorContext.addFieldError(fieldName, validationError.getMessage());
-
                 }
             }
-        }
+         }
     }
 
 
