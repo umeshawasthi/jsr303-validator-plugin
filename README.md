@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/umeshawasthi/jsr303-validator-plugin.png?branch=master)](https://travis-ci.org/umeshawasthi/jsr303-validator-plugin)
 
-#This plugin is now part of official `Struts2` release and no longer being maintained independently. Please refer to [bean-validation-plugin](https://struts.apache.org/docs/bean-validation-plugin.html) for more detail
+##This plugin is now part of official `Struts2` release and no longer being maintained independently. Please refer to [bean-validation-plugin](https://struts.apache.org/docs/bean-validation-plugin.html) for more detail
 
 
 jsr303-validator-plugin
